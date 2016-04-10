@@ -7,13 +7,20 @@ class Image
 
   attr_accessor :size
 
-  def initialize(n)
-    @size = Array.new(n) {Array.new(n){|i| Struct::Byte.new(4, i)}}
+  def initialize(height, width)
+    i = 0
+    @size = Array.new(height) {Array.new(width){Struct::Byte.new(4, i+=1)}}
   end
 
   Struct.new("Byte", :size, :id)
+
+  def rotate
+    @size.each_with_index do |_,i|
+      (0...i).each do |j|
+        @size[j][i], @size[i][j] = @size[i][j], @size[j][i]
+      end
+    end
+  end
+
 end
 
-def rotate(image)
-
-end
