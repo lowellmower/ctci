@@ -63,6 +63,20 @@ class LinkedList
     end
   end
 
+  def partition(num)
+    result = []
+    lower = []
+    higher = []
+    self.each do |n|
+      if n.data >= num
+        higher << n.data
+      elsif n.data < num
+        lower << n.data
+      end
+    end
+    return result << lower << higher
+  end
+
   def each
     item = @head
     while item
