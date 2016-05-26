@@ -22,6 +22,32 @@ class LinkedList
     @head.nil?
   end
 
+  def num_from_end(n)
+    index = @head
+    trailing = @head
+    (n - 1).times do
+      index = index.next if index
+    end
+    while index && index.next
+      index = index.next
+      trailing = trailing.next
+    end
+    trailing
+  end
+
+  def remove(item)
+    prev_node = nil
+    return @head = @head.next if @head.data == item
+    self.each do |n|
+      if n.next.data == item
+        prev_node = n
+      elsif n.data == item
+        prev_node.next = n.next
+        return n.data
+      end
+    end
+  end
+
   def uniq!
     node_data = {}
     prev_node = nil
